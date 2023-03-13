@@ -1,5 +1,6 @@
 package com.wanfadger.ecommerce.serviceimpl;
 
+import com.wanfadger.ecommerce.dto.PageableResponseDto;
 import com.wanfadger.ecommerce.dto.ProductDto;
 import com.wanfadger.ecommerce.dto.ResponseDto;
 import com.wanfadger.ecommerce.entity.Product;
@@ -10,12 +11,16 @@ import jakarta.persistence.Column;
 import jakarta.transaction.Transactional;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -33,6 +38,36 @@ public class ProductServiceImpl implements ProductService {
     public ResponseDto<List<ProductDto>> getAll() {
         return new ResponseDto<>(productRepository.findAll().stream().map(this::convertToDto).collect(Collectors.toList()));
     }
+
+    @Override
+    public PageableResponseDto<List<ProductDto>> getAll(Map<String, String> queryParams) {
+        int size = 20;
+        int page = 0;
+        if(queryParams != null && queryParams.get("size") != null && !queryParams.get("size").isEmpty()){
+            size = Integer.parseInt(queryParams.get("size"));
+        }
+
+        if(queryParams != null && queryParams.get("page") != null && !queryParams.get("page").isEmpty()){
+            page = Integer.parseInt(queryParams.get("page"));
+        }
+
+        if(queryParams != null && queryParams.get("category") != null && !queryParams.get("category").isEmpty()){
+            Page<Product> productPage = productRepository.findAllByCategory_Id(Long.valueOf(queryParams.get("category")) , PageRequest.of(page , size));
+            return new PageableResponseDto<>(productPage.getTotalPages(),
+                    productPage.getTotalElements(),
+                    productPage.getContent().stream().map(this::convertToDto).collect(Collectors.toList())
+            );
+        }
+
+
+
+        Page<Product> productPage = productRepository.findAll(PageRequest.of(page , size));
+        return new PageableResponseDto<>(productPage.getTotalPages(),
+                productPage.getTotalElements(),
+                productPage.getContent().stream().map(this::convertToDto).collect(Collectors.toList())
+                );
+    }
+
 
     @Override
     public ResponseDto<ProductDto> getOne(Long id) {

@@ -1,5 +1,6 @@
 package com.wanfadger.ecommerce.serviceimpl;
 
+import com.wanfadger.ecommerce.dto.PageableResponseDto;
 import com.wanfadger.ecommerce.dto.ProductCategoryDto;
 import com.wanfadger.ecommerce.dto.ResponseDto;
 import com.wanfadger.ecommerce.entity.ProductCategory;
@@ -11,6 +12,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -31,6 +33,11 @@ public class ProductCategoryImpl implements ProductCategoryService {
     @Override
     public ResponseDto<List<ProductCategoryDto>> getAll() {
         return new ResponseDto<>(productCategoryRepository.findAll().stream().map(this::convertToDto).collect(Collectors.toList()));
+    }
+
+    @Override
+    public PageableResponseDto<List<ProductCategoryDto>> getAll(Map<String, String> queryParams) {
+        return null;
     }
 
     @Override

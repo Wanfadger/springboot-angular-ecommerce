@@ -1,6 +1,5 @@
 package com.wanfadger.ecommerce.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,6 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ResponseDto<T> {
+public class PageableResponseDto<T> {
+    int totalPages;
+    long totalElements;
+
     T data;
 }

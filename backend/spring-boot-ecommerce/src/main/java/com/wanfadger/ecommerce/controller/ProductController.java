@@ -1,5 +1,6 @@
 package com.wanfadger.ecommerce.controller;
 
+import com.wanfadger.ecommerce.dto.PageableResponseDto;
 import com.wanfadger.ecommerce.dto.ProductDto;
 import com.wanfadger.ecommerce.dto.ResponseDto;
 import com.wanfadger.ecommerce.entity.Product;
@@ -7,6 +8,8 @@ import com.wanfadger.ecommerce.service.ProductService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @RestController()
 @RequestMapping("/api/products")
@@ -20,8 +23,8 @@ public class ProductController {
     }
 
     @GetMapping()
-    public ResponseDto<List<ProductDto>> getAll() {
-        return productService.getAll();
+    public PageableResponseDto<List<ProductDto>> getAll(@RequestParam Map<String , String> queryParams) {
+        return productService.getAll(queryParams);
     }
 
     @GetMapping("/{id}")
