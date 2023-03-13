@@ -1,6 +1,7 @@
 package com.wanfadger.ecommerce.serviceimpl;
 
 import com.wanfadger.ecommerce.dto.ProductCategoryDto;
+import com.wanfadger.ecommerce.dto.ResponseDto;
 import com.wanfadger.ecommerce.entity.ProductCategory;
 import com.wanfadger.ecommerce.exceptions.NotFoundException;
 import com.wanfadger.ecommerce.repository.ProductCategoryRepository;
@@ -28,17 +29,17 @@ public class ProductCategoryImpl implements ProductCategoryService {
 
 
     @Override
-    public List<ProductCategoryDto> getAll() {
-        return productCategoryRepository.findAll().stream().map(this::convertToDto).collect(Collectors.toList());
+    public ResponseDto<List<ProductCategoryDto>> getAll() {
+        return new ResponseDto<>(productCategoryRepository.findAll().stream().map(this::convertToDto).collect(Collectors.toList()));
     }
 
     @Override
-    public ProductCategoryDto getOne(Long id) {
+    public ResponseDto<ProductCategoryDto> getOne(Long id) {
         Optional<ProductCategory> optional = productCategoryRepository.findById(id);
         if (optional.isEmpty()) {
             throw new NotFoundException("Product Category not found");
         }
-        return this.convertToDto(optional.get());
+        return new ResponseDto<>(this.convertToDto(optional.get()));
     }
 
     private ProductCategoryDto convertToDto(ProductCategory productCategory){

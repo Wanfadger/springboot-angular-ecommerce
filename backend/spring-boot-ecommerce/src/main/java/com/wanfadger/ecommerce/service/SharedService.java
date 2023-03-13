@@ -1,8 +1,10 @@
 package com.wanfadger.ecommerce.service;
 
+import com.wanfadger.ecommerce.dto.ResponseDto;
+
 import java.util.List;
 
 public interface SharedService<T, R> {
-    List<R> getAll();
-    R getOne(Long id);
+    ResponseDto<List<R>> getAll();
+    ResponseDto<R> getOne(Long id);
 }
