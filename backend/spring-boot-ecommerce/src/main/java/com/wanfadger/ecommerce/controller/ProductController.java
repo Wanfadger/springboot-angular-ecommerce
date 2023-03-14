@@ -23,9 +23,10 @@ public class ProductController {
     }
 
     @GetMapping()
-    public PageableResponseDto<List<ProductDto>> getAll(@RequestParam Map<String , String> queryParams) {
+    public PageableResponseDto<List<ProductDto>> search(@RequestParam Map<String , String> queryParams) {
         return productService.getAll(queryParams);
     }
+
 
     @GetMapping("/{id}")
     public ResponseDto<ProductDto> getOne(@PathVariable Long id) {

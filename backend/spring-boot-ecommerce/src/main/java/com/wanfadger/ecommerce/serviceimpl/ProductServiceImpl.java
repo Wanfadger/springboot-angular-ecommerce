@@ -51,8 +51,19 @@ public class ProductServiceImpl implements ProductService {
             page = Integer.parseInt(queryParams.get("page"));
         }
 
+        //category
         if(queryParams != null && queryParams.get("category") != null && !queryParams.get("category").isEmpty()){
             Page<Product> productPage = productRepository.findAllByCategory_Id(Long.valueOf(queryParams.get("category")) , PageRequest.of(page , size));
+            return new PageableResponseDto<>(productPage.getTotalPages(),
+                    productPage.getTotalElements(),
+                    productPage.getContent().stream().map(this::convertToDto).collect(Collectors.toList())
+            );
+        }
+
+
+        //product name
+        if(queryParams != null && queryParams.get("productName") != null && !queryParams.get("productName").isEmpty()){
+            Page<Product> productPage = productRepository.findAllByNameContainingIgnoreCase(queryParams.get("productName") , PageRequest.of(page , size));
             return new PageableResponseDto<>(productPage.getTotalPages(),
                     productPage.getTotalElements(),
                     productPage.getContent().stream().map(this::convertToDto).collect(Collectors.toList())

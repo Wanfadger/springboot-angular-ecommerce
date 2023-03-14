@@ -29,4 +29,6 @@ public class ProductCategoryController  {
     public ResponseDto<ProductCategoryDto> getOne(@PathVariable Long id) {
         return productCategoryService.getOne(id);
     }
+
+
 }
