@@ -89,6 +89,11 @@ public class ProductServiceImpl implements ProductService {
         return new ResponseDto<>(this.convertToDto(optional.get()));
     }
 
+    @Override
+    public ResponseDto<ProductDto> getOne(Map<String, String> queryParams) {
+        return null;
+    }
+
     private ProductDto convertToDto(Product product){
         ProductDto build = ProductDto.builder()
                 .dateCreated(product.getDateCreated().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))

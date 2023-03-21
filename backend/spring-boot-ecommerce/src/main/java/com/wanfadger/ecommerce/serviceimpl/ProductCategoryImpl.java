@@ -49,6 +49,11 @@ public class ProductCategoryImpl implements ProductCategoryService {
         return new ResponseDto<>(this.convertToDto(optional.get()));
     }
 
+    @Override
+    public ResponseDto<ProductCategoryDto> getOne(Map<String, String> queryParams) {
+        return null;
+    }
+
     private ProductCategoryDto convertToDto(ProductCategory productCategory){
         return ProductCategoryDto.builder()
                 .categoryName(productCategory.getCategoryName())

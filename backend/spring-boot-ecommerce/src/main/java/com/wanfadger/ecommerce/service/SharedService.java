@@ -11,4 +11,5 @@ public interface SharedService<T, R> {
     ResponseDto<List<R>> getAll();
     PageableResponseDto<List<R>> getAll(Map<String , String> queryParams);
     ResponseDto<R> getOne(Long id);
+    ResponseDto<R> getOne(Map<String , String> queryParams);
 }
