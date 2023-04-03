@@ -12,6 +12,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/checkout")
+@CrossOrigin
 public class CheckoutController {
     private final CheckoutService checkoutService;
 
@@ -21,6 +22,8 @@ public class CheckoutController {
 
     @PostMapping()
     public PurchaseResponseDto checkout(@RequestBody PurchaseDto dto) {
+//        System.out.println("PURCHASING");
+//        System.out.println(dto);
         return checkoutService.placeOrder(dto);
     }
 }

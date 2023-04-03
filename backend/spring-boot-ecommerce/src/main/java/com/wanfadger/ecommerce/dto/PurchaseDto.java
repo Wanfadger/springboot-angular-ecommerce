@@ -23,7 +23,7 @@ public class PurchaseDto {
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    public class Customer{
+    public static class Customer{
         private String firstName;
         private String lastName;
         private String email;
@@ -33,30 +33,36 @@ public class PurchaseDto {
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    public class ShippingAddress{
+    public static class Address{
         private String street;
         private String city;
-        private String state;
-        private String county;
+        private State state;
+        private Country country;
         private String zipCode;
     }
 
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    public class Address{
-        private String street;
-        private String city;
-        private String state;
-        private String country;
-        private String zipCode;
+    public static class Country{
+        private long id;
+        private String code;
+        private String name;
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class State{
+        private long id;
+        private String name;
     }
 
 
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    public class Order{
+    public static class Order{
         private BigDecimal totalPrice;
         private int totalQuantity;
         private String status;
@@ -66,7 +72,7 @@ public class PurchaseDto {
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    public class OrderItems{
+    public static class OrderItems{
        private String imageUrl;
        private int quantity;
        private BigDecimal unitPrice;

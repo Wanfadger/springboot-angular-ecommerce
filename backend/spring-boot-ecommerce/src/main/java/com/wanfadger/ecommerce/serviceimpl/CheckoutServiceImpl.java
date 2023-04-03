@@ -64,20 +64,20 @@ public class CheckoutServiceImpl implements CheckoutService {
         PurchaseDto.Address dtoShippingAddress = dto.getShippingAddress();
         Address shippingAddress = new Address();
         shippingAddress.setCity(dtoShippingAddress.getCity());
-        shippingAddress.setCountry(dtoShippingAddress.getCountry());
+        shippingAddress.setCountry(dtoShippingAddress.getCountry().getName());
         shippingAddress.setStreet(dtoShippingAddress.getStreet());
         shippingAddress.setZipCode(dtoShippingAddress.getZipCode());
-        shippingAddress.setState(dtoShippingAddress.getState());
+        shippingAddress.setState(dtoShippingAddress.getState().getName());
         order.setShippingAddress(shippingAddress);
 
 
         PurchaseDto.Address dtoBillingAddress = dto.getBillingAddress();
         Address billingAddress = new Address();
         billingAddress.setCity(dtoBillingAddress.getCity());
-        billingAddress.setCountry(dtoBillingAddress.getCountry());
+        billingAddress.setCountry(dtoBillingAddress.getCountry().getName());
         billingAddress.setStreet(dtoBillingAddress.getStreet());
         billingAddress.setZipCode(dtoBillingAddress.getZipCode());
-        billingAddress.setState(dtoBillingAddress.getState());
+        billingAddress.setState(dtoBillingAddress.getState().getName());
         order.setBillingAddress(billingAddress);
         order.setBillingAddress(billingAddress);
         // populate customer with order
